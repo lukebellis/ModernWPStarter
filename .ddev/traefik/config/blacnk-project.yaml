@@ -1,0 +1,86 @@
+#ddev-generated
+
+http:
+  routers:
+    
+    
+    blacnk-project-web-80-http:
+      
+      rule: HostRegexp(`blacnk-project.ddev.site`)
+      
+      service: "blacnk-project-web-80-http"
+      tls: false
+      entrypoints:
+        - http-80
+    
+    
+    blacnk-project-web-8025-http:
+      
+      rule: HostRegexp(`blacnk-project.ddev.site`)
+      
+      service: "blacnk-project-web-8025-http"
+      tls: false
+      entrypoints:
+        - http-8025
+    
+    
+    
+    
+    
+    
+    blacnk-project-web-80-https:
+      
+      rule: HostRegexp(`blacnk-project.ddev.site`)
+      
+      service: "blacnk-project-web-80-https"
+      
+      tls: true
+      
+      entrypoints:
+        - http-443
+    
+    
+    blacnk-project-web-8025-https:
+      
+      rule: HostRegexp(`blacnk-project.ddev.site`)
+      
+      service: "blacnk-project-web-8025-https"
+      
+      tls: true
+      
+      entrypoints:
+        - http-8026
+    
+    
+
+  services:
+    
+    blacnk-project-web-80-http:
+      loadbalancer:
+        servers:
+          - url: http://ddev-blacnk-project-web:80
+    
+    blacnk-project-web-8025-http:
+      loadbalancer:
+        servers:
+          - url: http://ddev-blacnk-project-web:8025
+    
+    blacnk-project-web-80-https:
+    
+      loadbalancer:
+        servers:
+          - url: http://ddev-blacnk-project-web:80
+    
+    blacnk-project-web-8025-https:
+    
+      loadbalancer:
+        servers:
+          - url: http://ddev-blacnk-project-web:8025
+    
+
+
+tls:
+  certificates:
+    - certFile: /mnt/ddev-global-cache/traefik/certs/blacnk-project.crt
+      keyFile: /mnt/ddev-global-cache/traefik/certs/blacnk-project.key
+
