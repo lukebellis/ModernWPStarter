@@ -1,4 +1,4 @@
-name: blank-project
+name: modernwpstarter
 type: wordpress
 docroot: web
 php_version: "8.1"

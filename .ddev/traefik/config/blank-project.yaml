@@ -1,0 +1,86 @@
+#ddev-generated
+
+http:
+  routers:
+    
+    
+    blank-project-web-80-http:
+      
+      rule: HostRegexp(`blank-project.ddev.site`)
+      
+      service: "blank-project-web-80-http"
+      tls: false
+      entrypoints:
+        - http-80
+    
+    
+    blank-project-web-8025-http:
+      
+      rule: HostRegexp(`blank-project.ddev.site`)
+      
+      service: "blank-project-web-8025-http"
+      tls: false
+      entrypoints:
+        - http-8025
+    
+    
+    
+    
+    
+    
+    blank-project-web-80-https:
+      
+      rule: HostRegexp(`blank-project.ddev.site`)
+      
+      service: "blank-project-web-80-https"
+      
+      tls: true
+      
+      entrypoints:
+        - http-443
+    
+    
+    blank-project-web-8025-https:
+      
+      rule: HostRegexp(`blank-project.ddev.site`)
+      
+      service: "blank-project-web-8025-https"
+      
+      tls: true
+      
+      entrypoints:
+        - http-8026
+    
+    
+
+  services:
+    
+    blank-project-web-80-http:
+      loadbalancer:
+        servers:
+          - url: http://ddev-blank-project-web:80
+    
+    blank-project-web-8025-http:
+      loadbalancer:
+        servers:
+          - url: http://ddev-blank-project-web:8025
+    
+    blank-project-web-80-https:
+    
+      loadbalancer:
+        servers:
+          - url: http://ddev-blank-project-web:80
+    
+    blank-project-web-8025-https:
+    
+      loadbalancer:
+        servers:
+          - url: http://ddev-blank-project-web:8025
+    
+
+
+tls:
+  certificates:
+    - certFile: /mnt/ddev-global-cache/traefik/certs/blank-project.crt
+      keyFile: /mnt/ddev-global-cache/traefik/certs/blank-project.key
+
