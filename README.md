@@ -1,63 +1,57 @@
 <p align="center">
-  <a href="https://roots.io/bedrock/">
-    <img alt="Bedrock" src="https://cdn.roots.io/app/uploads/logo-bedrock.svg" height="100">
-  </a>
+  <img alt="Modern WordPress Starter" src="ModernWordPresStarter.webp" height="100">
 </p>
+
+<h1 align="center">Modern WordPress Starter</h1>
 
 <p align="center">
-  <a href="https://packagist.org/packages/roots/bedrock">
-    <img alt="Packagist Installs" src="https://img.shields.io/packagist/dt/roots/bedrock?label=projects%20created&colorB=2b3072&colorA=525ddc&style=flat-square">
-  </a>
-
-  <a href="https://packagist.org/packages/roots/wordpress">
-    <img alt="roots/wordpress Packagist Downloads" src="https://img.shields.io/packagist/dt/roots/wordpress?label=roots%2Fwordpress%20downloads&logo=roots&logoColor=white&colorB=2b3072&colorA=525ddc&style=flat-square">
-  </a>
-  
-  <img src="https://img.shields.io/badge/dynamic/json.svg?url=https://raw.githubusercontent.com/roots/bedrock/master/composer.json&label=wordpress&logo=roots&logoColor=white&query=$.require[%22roots/wordpress%22]&colorB=2b3072&colorA=525ddc&style=flat-square">
-
-  <a href="https://github.com/roots/bedrock/actions/workflows/ci.yml">
-    <img alt="Build Status" src="https://img.shields.io/github/actions/workflow/status/roots/bedrock/ci.yml?branch=master&logo=github&label=CI&style=flat-square">
-  </a>
-
-  <a href="https://twitter.com/rootswp">
-    <img alt="Follow Roots" src="https://img.shields.io/badge/follow%20@rootswp-1da1f2?logo=twitter&logoColor=ffffff&message=&style=flat-square">
-  </a>
+  A streamlined WordPress setup using Docker, DDEV, and a custom initialization script to kickstart your development with ease.
 </p>
 
-<p align="center">WordPress boilerplate with Composer, easier configuration, and an improved folder structure</p>
+## Features
 
-<p align="center">
-  <a href="https://roots.io/bedrock/">Website</a> &nbsp;&nbsp; <a href="https://roots.io/bedrock/docs/installation/">Documentation</a> &nbsp;&nbsp; <a href="https://github.com/roots/bedrock/releases">Releases</a> &nbsp;&nbsp; <a href="https://discourse.roots.io/">Community</a>
-</p>
+- **Docker-based environment** ensuring consistency across development, staging, and production.
+- **DDEV integration** for simple and powerful local development.
+- **Custom Bash script** for initializing projects, managing dependencies, and setting up WordPress with best practices.
+- Enhanced security and configuration through environment-specific setups.
 
-## Sponsors
+## Prerequisites
 
-Bedrock is an open source project and completely free to use. If you've benefited from our projects and would like to support our future endeavors, please consider [sponsoring Roots](https://github.com/sponsors/roots).
+Before you start, ensure you have Docker installed on your system. If you're new to Docker, follow the [official Docker installation guide](https://docs.docker.com/get-docker/).
 
-<div align="center">
-<a href="https://k-m.com/"><img src="https://cdn.roots.io/app/uploads/km-digital.svg" alt="KM Digital" width="120" height="90"></a> <a href="https://carrot.com/"><img src="https://cdn.roots.io/app/uploads/carrot.svg" alt="Carrot" width="120" height="90"></a> <a href="https://wordpress.com/"><img src="https://cdn.roots.io/app/uploads/wordpress.svg" alt="WordPress.com" width="120" height="90"></a> <a href="https://worksitesafety.ca/careers/"><img src="https://cdn.roots.io/app/uploads/worksite-safety.svg" alt="Worksite Safety" width="120" height="90"></a> <a href="https://www.freave.com/"><img src="https://cdn.roots.io/app/uploads/freave.svg" alt="Freave" width="120" height="90"></a>
-</div>
+DDEV is my chosen tool for managing Docker-based projects, providing a seamless and flexible development environment. If you haven't yet, install DDEV by following the instructions at [DDEV's official documentation](https://ddev.readthedocs.io/en/stable/#installation).
 
-## Overview
+## Quick Start
 
-Bedrock is a WordPress boilerplate for developers that want to manage their projects with Git and Composer. Much of the philosophy behind Bedrock is inspired by the [Twelve-Factor App](http://12factor.net/) methodology, including the [WordPress specific version](https://roots.io/twelve-factor-wordpress/).
+1. **Clone the repository** to your local machine:
+   
+   git clone git@github.com:lukebellis/ModernWPStarter.git
 
-- Better folder structure
-- Dependency management with [Composer](https://getcomposer.org)
-- Easy WordPress configuration with environment specific files
-- Environment variables with [Dotenv](https://github.com/vlucas/phpdotenv)
-- Autoloader for mu-plugins (use regular plugins as mu-plugins)
-- Enhanced security (separated web root and secure passwords with [wp-password-bcrypt](https://github.com/roots/wp-password-bcrypt))
+2. **Navigate into the project directory:**
 
-## Getting Started
+    cd modernwpstarter
 
-See the [Bedrock installation documentation](https://roots.io/bedrock/docs/installation/).
+3. **run the setup script from your terminal (not from within VSCode or any other IDE's terminal):**
 
-## Stay Connected
+Make sure the script is executable: 
 
-- Join us on Discord by [sponsoring us on GitHub](https://github.com/sponsors/roots)
-- Participate on [Roots Discourse](https://discourse.roots.io/)
-- Follow [@rootswp on Twitter](https://twitter.com/rootswp)
-- Read the [Roots Blog](https://roots.io/blog/)
-- Subscribe to the [Roots Newsletter](https://roots.io/newsletter/)
-# blank_bedrock
+chmod +x setup.sh.
+
+./setup.sh
+
+4. **Follow the prompts to customise your WordPress setup, including the site and theme names.**
+
+Open your project in Visual Studio Code:
+
+Run code . in your terminal to open the project.
+
+If you're on a Mac and haven't set up the code command, open VSCode, press Cmd + Shift + P, type Shell Command: Install 'code' command in PATH, and press Enter.
+
+Modern WordPress Starter is an open-source project. If it helps you build great sites, consider sponsoring us through GitHub Sponsors or contributing directly to the project.
+
+
+
+
+
+
+
