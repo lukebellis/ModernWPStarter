@@ -12,7 +12,7 @@
 
 - **Docker-based environment** ensuring consistency across development, staging, and production.
 - **DDEV integration** for simple and powerful local development.
-- **Custom Bash script** for initializing projects, managing dependencies, and setting up WordPress with best practices.
+- **Custom Bash script** for initialising projects, managing dependencies, and setting up WordPress with best practices.
 - Enhanced security and configuration through environment-specific setups.
 
 ## Prerequisites
@@ -25,7 +25,7 @@ DDEV is my chosen tool for managing Docker-based projects, providing a seamless 
 
 1. **Clone the repository** to your local machine:
    
-   git clone git@github.com:lukebellis/ModernWPStarter.git
+   git clone "git@github.com:lukebellis/ModernWPStarter.git"
 
 2. **Navigate into the project directory:**
 
@@ -33,11 +33,11 @@ DDEV is my chosen tool for managing Docker-based projects, providing a seamless 
 
 3. **run the setup script from your terminal (not from within VSCode or any other IDE's terminal):**
 
-Make sure the script is executable: 
+    Make sure the script is executable: 
 
-chmod +x setup.sh.
+    chmod +x setup.sh.
 
-./setup.sh
+    ./setup.sh
 
 4. **Follow the prompts to customise your WordPress setup, including the site and theme names.**
 
