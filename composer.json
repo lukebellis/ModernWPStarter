@@ -46,7 +46,8 @@
     "roots/wp-password-bcrypt": "1.1.0",
     "wpackagist-theme/twentytwentyfour": "^1.0",
     "wpengine/advanced-custom-fields-pro": "*",
-    "wpackagist-plugin/acf-to-rest-api": "^3.3.2"
+    "wpackagist-plugin/acf-to-rest-api": "^3.3.2",
+    "roots/acorn": "^2.0.0"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^3.7.1",
