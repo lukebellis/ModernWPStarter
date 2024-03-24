@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="Modern WordPress Starter" src="ModernWordPresStarter.webp" height="100">
+  <img alt="Modern WordPress Starter" src="ModernWordPresStarter.webp" height="300" style="border-radius:25px">
 </p>
 
 <h1 align="center">Modern WordPress Starter</h1>
