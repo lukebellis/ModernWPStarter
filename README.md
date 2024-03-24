@@ -1,5 +1,7 @@
 <p align="center">
-  <img alt="Modern WordPress Starter" src="ModernWordPresStarter.webp" height="300" style="border-radius:25px">
+  <div style="border-radius: 25px; overflow: hidden; display: inline-block;">
+    <img alt="Modern WordPress Starter" src="ModernWordPresStarter.webp" height="300">
+  </div>
 </p>
 
 <h1 align="center">Modern WordPress Starter</h1>
