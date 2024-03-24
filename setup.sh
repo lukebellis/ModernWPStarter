@@ -104,57 +104,40 @@ echo ".env file has been created at $(pwd)/.env"
 read -p "Enter the theme name [PixelCodeLab]: " theme_name
 theme_name=${theme_name:-PixelCodeLab}
 
-# Run composer install to set up WordPress
-if ! composer install; then
-    echo "Composer install failed. Attempting composer update to fix dependencies..."
-    composer update || { echo "Composer update failed. Exiting."; exit 1; }
-fi
-
-# Check for NVM and install required Node.js version
-echo "Checking for NVM and installing the required version of Node.js..."
-if ! command -v nvm &> /dev/null; then
-    echo "NVM is not installed. Installing NVM..."
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-    # Load NVM
-        export NVM_DIR="$HOME/.nvm"
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads NVM
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-    echo "NVM installed successfully."
-fi
-
-# Install and use the required Node.js version
-nvm install 20.11.1
-nvm use 20.11.1
-echo "Node.js version 20.11.1 has been installed."
-
-# Navigate to theme directory and setup
-cd web/app/themes || exit 1
-if [ -d "$theme_name" ]; then
-    echo "Theme directory exists."
-else
-    if [ -d "PixelCodeLab" ]; then
-        mv "PixelCodeLab" "$theme_name"
-        echo "Theme directory renamed to $theme_name."
-    else
-        echo "Default theme directory not found. Please check the theme name."
-        exit 1
-    fi
-fi
-cd "$theme_name" || exit 1
-npm install || { echo "npm install failed. Exiting."; exit 1; }
-
-# Return to the project root directory
-cd ../../../..
-
-# Create and set permissions for the Acorn cache directory
-echo "Setting up Acorn cache directory..."
-ddev exec mkdir -p web/app/cache/
-ddev exec chmod -R 777 /var/www/html/web/app/cache
-echo "Acorn cache directory is set up."
-
 # Start DDEV
 echo "Starting DDEV..."
 ddev start || { echo "Failed to start DDEV. Please check your DDEV setup. Exiting."; exit 1; }
+
+# Navigate to theme directory and setup
+echo "Navigating to theme directory..."
+cd web/app/themes/$theme_name || { echo "Failed to navigate to the theme directory. Exiting."; exit 1; }
+
+# Run composer install for the theme
+echo "Running composer install for the theme..."
+if ! ddev exec composer install; then
+    echo "Composer install for theme failed. Attempting composer update to fix dependencies
+# Composer update for the theme
+    if ! ddev exec composer update; then
+        echo "Composer update for theme failed. Exiting."
+        exit 1
+    fi
+fi
+
+# Run npm install for the theme
+echo "Running npm install for the theme..."
+if ! ddev exec npm install; then
+    echo "npm install for theme failed. Exiting."
+    exit 1
+fi
+
+# Return to the project root directory
+cd ../../..
+
+# Create and set permissions for the Acorn cache directory
+echo "Setting up Acorn cache directory..."
+ddev exec mkdir -p web/app/cache/acorn/framework/cache
+ddev exec chmod -R 777 /var/www/html/web/app/cache/acorn/framework/cache
+echo "Acorn cache directory is set up."
 
 echo "Setup complete. DDEV project started."
 echo "Your project is now available at $WP_HOME."
