@@ -115,8 +115,7 @@ cd web/app/themes/$theme_name || { echo "Failed to navigate to the theme directo
 # Run composer install for the theme
 echo "Running composer install for the theme..."
 if ! ddev exec composer install; then
-    echo "Composer install for theme failed. Attempting composer update to fix dependencies
-# Composer update for the theme
+    echo "Composer install for theme failed. Attempting composer update to fix dependencies..."
     if ! ddev exec composer update; then
         echo "Composer update for theme failed. Exiting."
         exit 1
@@ -135,8 +134,8 @@ cd ../../..
 
 # Create and set permissions for the Acorn cache directory
 echo "Setting up Acorn cache directory..."
-ddev exec mkdir -p web/app/cache/acorn/framework/cache
-ddev exec chmod -R 777 /var/www/html/web/app/cache/acorn/framework/cache
+ddev exec mkdir -p web/app/cache/
+ddev exec chmod -R 777 /var/www/html/web/app/cache/
 echo "Acorn cache directory is set up."
 
 echo "Setup complete. DDEV project started."
