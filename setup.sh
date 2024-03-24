@@ -143,6 +143,12 @@ npm install || { echo "npm install failed. Exiting."; exit 1; }
 # Return to the project root directory
 cd ../../../..
 
+# Create and set permissions for the Acorn cache directory
+echo "Setting up Acorn cache directory..."
+ddev exec mkdir -p /var/www/html/web/app/cache/acorn/framework/cache
+ddev exec chmod -R 777 /var/www/html/web/app/cache/acorn/framework/cache
+echo "Acorn cache directory is set up."
+
 # Start DDEV
 echo "Starting DDEV..."
 ddev start || { echo "Failed to start DDEV. Please check your DDEV setup. Exiting."; exit 1; }
