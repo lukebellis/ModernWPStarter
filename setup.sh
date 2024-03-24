@@ -52,6 +52,23 @@ if [[ ! $site_name =~ ^[a-z0-9]+(-[a-z0-9]+)*(\.[a-z0-9]+(-[a-z0-9]+)*)*$ ]]; th
     exit 1
 fi
 
+# Get the current directory's absolute path
+current_dir=$(pwd)
+
+# Move up one directory level
+cd ..
+
+# Determine the new project directory name based on user input
+new_project_dir="${site_name}"
+
+# Rename the project directory
+mv "$current_dir" "$new_project_dir"
+
+# Change directory into the newly renamed project directory
+cd "$new_project_dir" || { echo "Failed to navigate into the newly renamed project directory. Exiting."; exit 1; }
+
+echo "Project directory has been renamed to $new_project_dir."
+
 # Update .ddev/config.yaml with the new site name
 sed -i'' -e "s/^name:.*/name: $site_name/" .ddev/config.yaml
 echo "The .ddev/config.yaml file has been updated with the new site name: $site_name"
@@ -163,22 +180,7 @@ echo "Your project is now available at $WP_HOME."
 echo "Your theme has been set to: $theme_name."
 echo "To further develop your theme, navigate to 'web/app/themes/$theme_name'."
 
-# Get the current directory's absolute path
-current_dir=$(pwd)
 
-# Move up one directory level
-cd ..
-
-# Determine the new project directory name based on user input
-new_project_dir="${site_name}"
-
-# Rename the project directory
-mv "$current_dir" "$new_project_dir"
-
-# Change directory into the newly renamed project directory
-cd "$new_project_dir" || { echo "Failed to navigate into the newly renamed project directory. Exiting."; exit 1; }
-
-echo "Project directory has been renamed to $new_project_dir."
 
 # Optionally, offer to open the project in Visual Studio Code
 read -p "Would you like to open this project in Visual Studio Code now? (y/N): " open_vscode
