@@ -105,7 +105,11 @@ read -p "Enter the theme name [PixelCodeLab]: " theme_name
 theme_name=${theme_name:-PixelCodeLab}
 
 # Run composer install to set up WordPress
-composer install || { echo "Composer install failed. Exiting."; exit 1; }
+if ! composer install; then
+    echo "Composer install failed. Attempting composer update to fix dependencies..."
+    composer update || { echo "Composer update failed. Exiting."; exit 1; }
+fi
+
 
 # Check for NVM and install required Node.js version
 echo "Checking for NVM and installing the required version of Node.js..."
