@@ -5,15 +5,16 @@
 <h1 align="center">Modern WordPress Starter</h1>
 
 <p align="center">
-  A streamlined WordPress setup using Docker, DDEV, and a custom initialization script to kickstart your development with ease.
+  A streamlined WordPress setup designed to kickstart your development process with ease. Leveraging Docker, DDEV, and a bespoke initialisation script, this project aims to provide a consistent and efficient environment for WordPress development.
 </p>
 
 ## Features
 
-- **Docker-based environment** ensuring consistency across development, staging, and production.
-- **DDEV integration** for simple and powerful local development.
-- **Custom Bash script** for initialising projects, managing dependencies, and setting up WordPress with best practices.
+- **Docker-based environment** Ensures consistency across development, staging, and production environments.
+- **DDEV integration** Offers a simple yet powerful local development environment that's flexible and easy to use.
+- **Custom Bash script** Simplifies project initialisation, dependency management, and WordPress setup with a focus on best practices.
 - Enhanced security and configuration through environment-specific setups.
+- **Tailwind CSS Integration** The custom theme comes pre-equipped with Tailwind CSS, enabling you to utilise this utility-first CSS framework for rapid UI development.
 
 ## Prerequisites
 
@@ -29,7 +30,8 @@ DDEV is my chosen tool for managing Docker-based projects, providing a seamless 
 
 2. **Navigate into the project directory:**
 
-    cd modernwpstarter
+    cd  ModernWPStarter
+
 
 3. **run the setup script from your terminal (not from within VSCode or any other IDE's terminal):**
 
