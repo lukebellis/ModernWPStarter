@@ -29,6 +29,14 @@ else
     echo "DDEV is installed."
 fi
 
+# Check mkcert is installed
+if ! command -v mkcert &> /dev/null; then
+    echo "mkcert is not installed. Please install mkcert."
+    exit 1
+else
+    echo "mkcert is installed."
+fi
+
 # Prompt for the new site name
 read -p "Enter the new site name: " site_name
 
@@ -96,43 +104,60 @@ echo ".env file has been created at $(pwd)/.env"
 read -p "Enter the theme name [PixelCodeLab]: " theme_name
 theme_name=${theme_name:-PixelCodeLab}
 
+# Run composer install to set up WordPress
+composer install || { echo "Composer install failed. Exiting."; exit 1; }
+
 # Check for NVM and install required Node.js version
 echo "Checking for NVM and installing the required version of Node.js..."
 if ! command -v nvm &> /dev/null; then
     echo "NVM is not installed. Installing NVM..."
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+    # Load NVM
     export NVM_DIR="$HOME/.nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
     echo "NVM installed successfully."
 fi
 
+# Install and use the required Node.js version
 nvm install 20.11.1
 nvm use 20.11.1
 echo "Node.js version 20.11.1 has been installed."
 
 # Navigate to theme directory and setup
 cd web/app/themes || exit 1
-
-# Rename theme directory if necessary
-if [ -d "PixelCodeLab" ] && [ "$theme_name" != "PixelCodeLab" ]; then
-    mv PixelCodeLab "$theme_name" || { echo "Failed to rename theme directory. Exiting."; exit 1; }
+if [ -d "$theme_name" ]; then
+    echo "Theme directory exists."
+else
+    if [ -d "PixelCodeLab" ]; then
+        mv "PixelCodeLab" "$theme_name"
+        echo "Theme directory renamed to $theme_name."
+    else
+        echo "Default theme directory not found. Please check the theme name."
+        exit 1
+    fi
 fi
-
-# Navigate to the newly named theme directory
-cd "$theme_name" || { echo "Theme directory not found. Exiting."; exit 1; }
-echo "Theme directory set to: $theme_name"
-
+cd "$theme_name" || exit 1
 npm install || { echo "npm install failed. Exiting."; exit 1; }
 
-# Return to the root directory and start DDEV
-cd ../../../.. || exit 1
+# Return to the project root directory
+cd ../../../..
+
+# Start DDEV
 echo "Starting DDEV..."
 ddev start || { echo "Failed to start DDEV. Please check your DDEV setup. Exiting."; exit 1; }
 
 echo "Setup complete. DDEV project started."
-echo "Your project is now available at $WP_HOME"
-echo "Your theme has been set to: $theme_name"
+echo "Your project is now available at $WP_HOME."
+echo "Your theme has been set to: $theme_name."
+echo "To further develop your theme, navigate to 'web/app/themes/$theme_name'."
 
-# Final cleanup and user instructions
-echo "Installation and setup complete. Remember to visit $WP_HOME to complete your WordPress installation."
-echo "To develop your theme, navigate to web/app/themes/$theme_name."
+# Optionally, offer to open the project in Visual Studio Code
+read -p "Would you like to open this project in Visual Studio Code now? (y/N): " open_vscode
+if [[ $open_vscode =~ ^[Yy]$ ]]; then
+    if command -v code &> /dev/null; then
+        code .
+    else
+        echo "Visual Studio Code command 'code' not found. Please open the project manually."
+    fi
+fi
