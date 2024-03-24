@@ -109,53 +109,36 @@ touch .env
 echo ".env file has been created at $(pwd)/.env"
 
 # Prompt for theme name
-cd web/app/themes ||
-exit 1
-read -p "Enter the theme name [PixelCodeLab]: " theme_name
-theme_name=${theme_name:-PixelCodeLab}
-
-# If a theme directory with the default name exists, rename it
-if [ -d "PixelCodeLab" ]; then
-    mv PixelCodeLab "$theme_name"
+cd web/app/themes || exit 
 fi
 cd "$theme_name" || exit 1
 echo "Theme directory set to: $theme_name"
 
-# Inform user about manual actions if Docker or Node.js versions need to be managed
+# Check and install NVM and Node.js
 echo "Checking for NVM and installing the required version of Node.js."
-
-# Install NVM and Node.js version 20.11.1 if NVM is not installed
 if ! command -v nvm &> /dev/null; then
     echo "NVM is not installed. Installing NVM..."
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-    export NVM_DIR="$HOME/.nvm"
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-    echo "NVM installed successfully."
+    # Load NVM
+    export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 fi
 
-echo "Installing Node.js version 20.11.1."
-nvm install 20.11.1 || exit 1
+# Install required Node.js version
+nvm install 20.11.1
+nvm use 20.11.1
+echo "Node.js version 20.11.1 has been installed."
 
+# Proceed with npm install
 npm install || exit 1
 
-# Return to the root directory and start DDEV
-cd ../../.. || exit 1
+# Return to the project root directory
+cd ../../../.. || exit 1
+
+# Start DDEV
 echo "Starting DDEV..."
 ddev start || exit 1
 
 echo "Setup complete. DDEV project started."
 echo "Your project is now available at $WP_HOME"
 echo "Your theme has been set to: $theme_name"
-
-# Ensure Docker is started
-if ! docker info &> /dev/null; then
-    echo "Attempting to start Docker..."
-    sudo service docker start
-    if ! docker info &> /dev/null; then
-        echo "Failed to start Docker. Please start Docker manually."
-        exit 1
-    else
-        echo "Docker started successfully."
-    fi
-fi
