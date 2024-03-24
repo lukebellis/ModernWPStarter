@@ -110,7 +110,6 @@ if ! composer install; then
     composer update || { echo "Composer update failed. Exiting."; exit 1; }
 fi
 
-
 # Check for NVM and install required Node.js version
 echo "Checking for NVM and installing the required version of Node.js..."
 if ! command -v nvm &> /dev/null; then
@@ -118,8 +117,8 @@ if ! command -v nvm &> /dev/null; then
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
     # Load NVM
     export NVM_DIR="$HOME/.nvm"
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads NVM
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
     echo "NVM installed successfully."
 fi
 
@@ -161,6 +160,23 @@ echo "Setup complete. DDEV project started."
 echo "Your project is now available at $WP_HOME."
 echo "Your theme has been set to: $theme_name."
 echo "To further develop your theme, navigate to 'web/app/themes/$theme_name'."
+
+# Get the current directory's absolute path
+current_dir=$(pwd)
+
+# Move up one directory level
+cd ..
+
+# Determine the new project directory name based on user input
+new_project_dir="wp.${site_name}"
+
+# Rename the project directory
+mv "$current_dir" "$new_project_dir"
+
+# Change directory into the newly renamed project directory
+cd "$new_project_dir" || { echo "Failed to navigate into the newly renamed project directory. Exiting."; exit 1; }
+
+echo "Project directory has been renamed to $new_project_dir."
 
 # Optionally, offer to open the project in Visual Studio Code
 read -p "Would you like to open this project in Visual Studio Code now? (y/N): " open_vscode
