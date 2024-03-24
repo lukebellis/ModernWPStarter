@@ -170,7 +170,7 @@ current_dir=$(pwd)
 cd ..
 
 # Determine the new project directory name based on user input
-new_project_dir="wp.${site_name}"
+new_project_dir="${site_name}"
 
 # Rename the project directory
 mv "$current_dir" "$new_project_dir"
